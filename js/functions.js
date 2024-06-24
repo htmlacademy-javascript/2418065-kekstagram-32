@@ -3,7 +3,7 @@
 const checkStringLenght = function (string, maxLength) {
   return string.length <= maxLength;
 };
-
+checkStringLenght('проверяемая строка, 20');
 // Функция для проверки, является ли строка палиндромом. Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево
 
 const checkStringIsPalindrome = function (string) {
@@ -14,6 +14,7 @@ const checkStringIsPalindrome = function (string) {
   }
   return string === newString ;
 };
+checkStringIsPalindrome('шалаш');
 
 // Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN:
 
@@ -29,4 +30,4 @@ const getNumber = function (string) {
   }
   return parseInt(number, 10);
 };
-
+getNumber(555);
