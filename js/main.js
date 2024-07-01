@@ -30,35 +30,24 @@ const nameArray = [
 // генератор чисел
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-// генератор не повторяющихся чисел
-const createRandomDigit = (min, max) => {
-  const previousValue = [];
+const getId = () => {
+  let i = 1;
   return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValue.length >= (max - min + 1)) {
-      return null;
-    }
-    while(previousValue.includes(currentValue)) {
-      currentValue = getRandomInteger(min ,max);
-    }
-    previousValue.push(currentValue);
-    return currentValue;
+    return i++;
   };
 };
 
 const SIMILAR_OBJECT_COUNT = 25;
-const maxPhotoId = 25;
-const maxUserId = 25;
 const minLikesCount = 12;
 const maxLikesCount = 200;
 const maxCommentCount = 30;
 const maxCommentAvatarCount = 6;
 const maxMessageQuantity = 2;
-const createId = createRandomDigit(1, maxUserId);
-const createPhotoId = createRandomDigit(1, maxPhotoId);
+const createId = getId();
+const createPhotoId = getId();
 const createDescription = () => descriptionArray[getRandomInteger(1, descriptionArray.length - 1)];
 const createLikesCount = () => getRandomInteger(minLikesCount, maxLikesCount);
-const createCommentId = createRandomDigit(1, 1000);
+const createCommentId = getId();
 const createCommentAvatar = () => getRandomInteger(1, maxCommentAvatarCount);
 const createCommentMesage = () => {
   const messageQuantity = getRandomInteger(1, maxMessageQuantity);
@@ -89,7 +78,6 @@ const createObject = () =>
   });
 
 const similarObject = Array.from({length: SIMILAR_OBJECT_COUNT}, createObject);
-
 void similarObject;
 
 
