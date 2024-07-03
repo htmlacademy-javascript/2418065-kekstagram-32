@@ -33,3 +33,23 @@ const getNumber = function (string) {
 getNumber(555);
 
 
+// функция, которая принимает время начала и конца рабочего дня, а также время старта и продолжительность встречи в минутах и возвращает true, если встреча не выходит за рамки рабочего дня, и false, если выходит.
+//  Время указывается в виде строки в формате часы:минуты. Для указания часов и минут могут использоваться как две цифры, так и одна. Например, 8 часов 5 минут могут быть указаны по-разному: 08:05, 8:5, 08:5 или 8:05
+
+const getMinutsInString = (string) => {
+  const minutsArr = string.split(':');
+  return minutsArr[0] * 60 + minutsArr[1] * 1;
+
+};
+
+const getPossibleWorkTime = (beginingWorkTime, endingWorkTime, startMeetingTime, durationOfTheMeeting) => {
+  beginingWorkTime = getMinutsInString(beginingWorkTime);
+  endingWorkTime = getMinutsInString(endingWorkTime);
+  startMeetingTime = getMinutsInString(startMeetingTime);
+  return (startMeetingTime >= beginingWorkTime &&
+          startMeetingTime + durationOfTheMeeting <= endingWorkTime &&
+          endingWorkTime - startMeetingTime >= durationOfTheMeeting &&
+          endingWorkTime - beginingWorkTime >= durationOfTheMeeting);
+};
+
+getPossibleWorkTime('14:00', '17:30', '08:0', 90);
