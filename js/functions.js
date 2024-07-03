@@ -31,3 +31,5 @@ const getNumber = function (string) {
   return parseInt(number, 10);
 };
 getNumber(555);
+
+
