@@ -75,5 +75,3 @@ const createObject = () =>
 
 const similarObject = Array.from({length: SIMILAR_OBJECT_COUNT}, createObject);
 void similarObject;
-
-console.log(similarObject);
