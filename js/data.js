@@ -64,13 +64,14 @@ const createComments = () => ({
   name: createCommentName()
 });
 
+const getComments = () => Array.from({length: commentCounts()}, createComments);
 const createObject = () =>
   ({
     id: createId(),
     url: `photos/${createPhotoId()}.jpg`,
     description: createDescription(),
     likes: createLikesCount(),
-    comments: Array.from({length: commentCounts()}, createComments)
+    comments: getComments()
   });
 
 const getSimilarObject = () => Array.from({length: SIMILAR_OBJECT_COUNT}, createObject);
