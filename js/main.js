@@ -1,6 +1,6 @@
 import {getSimilarObject} from './data.js';
-getSimilarObject();
+import {createSimilarObject} from './thumbnails.js';
 
-import { similarObjects } from './thumbnails.js';
 
-similarObjects();
+const dataFromObject = getSimilarObject();
+createSimilarObject(dataFromObject);
