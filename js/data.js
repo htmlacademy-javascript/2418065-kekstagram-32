@@ -65,6 +65,7 @@ const createComments = () => ({
 });
 
 const getComments = () => Array.from({length: commentCounts()}, createComments);
+
 const createObject = () =>
   ({
     id: createId(),
@@ -75,4 +76,4 @@ const createObject = () =>
   });
 
 const getSimilarObject = () => Array.from({length: SIMILAR_OBJECT_COUNT}, createObject);
-export {getSimilarObject};
+export {getSimilarObject , getComments};
