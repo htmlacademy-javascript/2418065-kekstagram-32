@@ -20,7 +20,7 @@ const getObjectComments = (comArr) => {
 
   comArr.forEach((comment) => {
     const newCommentElement = createNewElement('li','social__comment');
-    const newCommentAvatar = createNewElement('img','.social__picture');
+    const newCommentAvatar = createNewElement('img','social__picture');
     const newCommentText = createNewElement('p', 'social__text');
     newCommentAvatar.src = comment.avatar;
     newCommentAvatar.alt = comment.name;
