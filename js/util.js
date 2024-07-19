@@ -15,5 +15,14 @@ const createNewElement = (tagName, className) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const hasDuplicate = (arr) => {
+  const uniqEl = new Set(arr);
+  return uniqEl.size !== arr.length;
+};
 
-export { getRandomInteger, getId, createNewElement, isEscapeKey};
+export { getRandomInteger,
+  getId,
+  createNewElement,
+  isEscapeKey,
+  hasDuplicate,
+};
