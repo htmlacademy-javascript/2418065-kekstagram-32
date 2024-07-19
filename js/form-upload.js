@@ -245,7 +245,7 @@ export const openUploadWindow = () => {
     scaleControlBigger.addEventListener('click', getPreviewBigger);
     imgUploadPreview.style.transform = `scale(${1})`;
     addValidators();
-    slider.noUiSlider.set();
+    slider.noUiSlider.set([0]);
     effectsList.addEventListener('change', onChangeEffects);
   });
 };
