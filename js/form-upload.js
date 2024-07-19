@@ -1,4 +1,6 @@
 import { isEscapeKey, hasDuplicate} from './util.js';
+import '../vendor/pristine/pristine.min.js';
+import '../vendor/nouislider/nouislider.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 
