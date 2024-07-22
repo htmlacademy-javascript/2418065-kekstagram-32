@@ -30,26 +30,23 @@ const SCALE_STEP = 25;
 
 const hashtagRegular = /^#[а-яёa-z0-9]{1,19}$/;
 
+let scaleValue = parseInt(scaleControlValue.value, 10);
 
 const getPreviewSmaller = () => {
 
-  let value = parseInt(scaleControlValue.value, 10);
-
-  if(value > MIN_SCALE_COUNT) {
-    value -= SCALE_STEP;
-    imgUploadPreview.style.transform = `scale(${value / 100})`;
-    scaleControlValue.value = `${value }%`;
+  if(scaleValue > MIN_SCALE_COUNT) {
+    scaleValue -= SCALE_STEP;
+    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
+    scaleControlValue.value = `${scaleValue }%`;
   }
 };
 
 const getPreviewBigger = () => {
 
-  let value = parseInt(scaleControlValue.value, 10);
-
-  if(value < MAX_SCALE_COUNT) {
-    value += SCALE_STEP;
-    imgUploadPreview.style.transform = `scale(${value / 100})`;
-    scaleControlValue.value = `${value }%`;
+  if(scaleValue < MAX_SCALE_COUNT) {
+    scaleValue += SCALE_STEP;
+    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
+    scaleControlValue.value = `${scaleValue }%`;
   }
 };
 
@@ -163,11 +160,6 @@ const onChangeEffects = (evt) => {
   slider.noUiSlider.updateOptions(newOptions);
 };
 
-const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error',
-},true);
 
 const error = {
   description: `Длина комментария больше ${MAX_DESCRIPTION_LENGTH} символов.`,
@@ -206,7 +198,7 @@ const validateHashtag = (value) => {
       isValid = false;
     }
 
-    if(hashtag[0] !== '#') {
+    if(hashtag.indexOf('#') !== 0) {
       error.hashtagMessage = 'хэштеги начинаются с #';
       isValid = false;
     }
@@ -222,7 +214,15 @@ const validateHashtag = (value) => {
 
 const validateDescription = (value) => value.length < MAX_DESCRIPTION_LENGTH;
 
+let pristine;
 const addValidators = () => {
+
+  pristine = new Pristine(uploadForm, {
+    classTo: 'img-upload__field-wrapper',
+    errorTextParent: 'img-upload__field-wrapper',
+    errorTextClass: 'img-upload__field-wrapper--error',
+  },true);
+
   pristine.addValidator(uploadInputHashtag,validateHashtag, hashtagError, 1, false);
   pristine.addValidator(uploadInputDescription, validateDescription, error.description, 1, false);
 };
@@ -235,7 +235,7 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-export const openUploadWindow = () => {
+const openUploadWindow = () => {
   uploadInput.addEventListener('change', () => {
     uploadOverlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
@@ -249,6 +249,7 @@ export const openUploadWindow = () => {
     addValidators();
     slider.noUiSlider.set([0]);
     effectsList.addEventListener('change', onChangeEffects);
+
   });
 };
 
@@ -265,13 +266,14 @@ function closeUploadWindow () {
   effectsList.removeEventListener('change', onChangeEffects);
   uploadForm.reset();
   pristine.reset();
+  pristine.destroy();
 }
 
 
 function onFormSubmit (evt) {
+  const isValid = pristine.validate();
   evt.preventDefault();
 
-  const isValid = pristine.validate();
 
   if (isValid) {
     closeUploadWindow();
@@ -295,3 +297,6 @@ function onInputDescriptionFocus () {
 
 uploadCloseButton.addEventListener('click',
   closeUploadWindow);
+
+
+export {openUploadWindow};
