@@ -24,9 +24,9 @@ const createSimilarObject = (data) => {
 
 const getPictureFromThumbnails = (data) => {
   objectList.addEventListener('click', (evt) => {
-    evt.preventDefault();
 
-    if(evt.target.matches('img')) {
+    if(evt.target.closest('a')) {
+      evt.preventDefault();
       const pictureId = Number(evt.target.closest('a').dataset.photoId);
       const currentPicture = data.find((e) => e.id === pictureId);
       createBigPicture(currentPicture);
