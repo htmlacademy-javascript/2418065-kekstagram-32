@@ -30,26 +30,6 @@ const SCALE_STEP = 25;
 
 const hashtagRegular = /^#[а-яёa-z0-9]{1,19}$/;
 
-let scaleValue = parseInt(scaleControlValue.value, 10);
-
-const getPreviewSmaller = () => {
-
-  if(scaleValue > MIN_SCALE_COUNT) {
-    scaleValue -= SCALE_STEP;
-    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
-    scaleControlValue.value = `${scaleValue }%`;
-  }
-};
-
-const getPreviewBigger = () => {
-
-  if(scaleValue < MAX_SCALE_COUNT) {
-    scaleValue += SCALE_STEP;
-    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
-    scaleControlValue.value = `${scaleValue }%`;
-  }
-};
-
 const sliderEffectsData = {
   none : {
     value: 'none',
@@ -122,6 +102,30 @@ const sliderEffectsData = {
   },
 };
 
+const error = {
+  description: `Длина комментария больше ${MAX_DESCRIPTION_LENGTH} символов.`,
+};
+
+let scaleValue = parseInt(scaleControlValue.value, 10);
+
+const getPreviewSmaller = () => {
+
+  if(scaleValue > MIN_SCALE_COUNT) {
+    scaleValue -= SCALE_STEP;
+    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
+    scaleControlValue.value = `${scaleValue }%`;
+  }
+};
+
+const getPreviewBigger = () => {
+
+  if(scaleValue < MAX_SCALE_COUNT) {
+    scaleValue += SCALE_STEP;
+    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
+    scaleControlValue.value = `${scaleValue }%`;
+  }
+};
+
 
 noUiSlider.create(slider, {
   range: {
@@ -160,10 +164,6 @@ const onChangeEffects = (evt) => {
   slider.noUiSlider.updateOptions(newOptions);
 };
 
-
-const error = {
-  description: `Длина комментария больше ${MAX_DESCRIPTION_LENGTH} символов.`,
-};
 
 const hashtagError = () => error.hashtagMessage;
 
@@ -246,10 +246,9 @@ const openUploadWindow = () => {
     scaleControlSmaller.addEventListener('click', getPreviewSmaller,);
     scaleControlBigger.addEventListener('click', getPreviewBigger);
     imgUploadPreview.style.transform = `scale(${1})`;
-    addValidators();
+    currentEffect = 'none';
     slider.noUiSlider.set([0]);
     effectsList.addEventListener('change', onChangeEffects);
-
   });
 };
 
@@ -257,16 +256,23 @@ const openUploadWindow = () => {
 function closeUploadWindow () {
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
+
   document.removeEventListener('keydown', onDocumentKeydown);
   uploadForm.removeEventListener('submit', onFormSubmit);
+
   uploadInputHashtag.removeEventListener('focus', onInputHashtagFocus);
   uploadInputDescription.removeEventListener('focus', onInputDescriptionFocus);
+  uploadInputHashtag.removeEventListener('keydown', addStopPropagation);
+  uploadInputDescription.removeEventListener('keydown', addStopPropagation);
+
   scaleControlSmaller.removeEventListener('click', getPreviewSmaller,);
   scaleControlBigger.removeEventListener('click', getPreviewBigger);
+
   effectsList.removeEventListener('change', onChangeEffects);
+
   uploadForm.reset();
   pristine.reset();
-  pristine.destroy();
+  // pristine.destroy();
 }
 
 
@@ -281,11 +287,11 @@ function onFormSubmit (evt) {
 }
 
 
-const addStopPropagation = (evt) => {
+function addStopPropagation (evt) {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
   }
-};
+}
 
 function onInputHashtagFocus () {
   uploadInputHashtag.addEventListener('keydown', addStopPropagation);
@@ -299,4 +305,4 @@ uploadCloseButton.addEventListener('click',
   closeUploadWindow);
 
 
-export {openUploadWindow};
+export {openUploadWindow, addValidators};
