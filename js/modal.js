@@ -9,7 +9,6 @@ const bigPictureSocialCaption = bigPictureModal.querySelector('.social__caption'
 const bigPictureShowedComments = bigPictureModal.querySelector('.social__comment-shown-count');
 const bigPictureTotalComments = bigPictureModal.querySelector('.social__comment-total-count');
 const bigPictureSocialComments = bigPictureModal.querySelector('.social__comments');
-// const bigPictureSocialCommentsCounts = bigPictureModal.querySelector('.social__comment-count');
 const bigPictureCommentsLoader = bigPictureModal.querySelector('.comments-loader');
 
 let showMoreComments;

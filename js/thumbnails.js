@@ -3,9 +3,9 @@ import { createBigPicture, openModal } from './modal.js';
 const objectList = document.querySelector('.pictures');
 const objectTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const objectListFragment = document.createDocumentFragment();
 
 const createSimilarObject = (data) => {
+  const objectListFragment = document.createDocumentFragment();
   data.forEach((obj) => {
     const objectProperty = objectTemplate.cloneNode(true);
     const pictureImage = objectProperty.querySelector('.picture__img');
@@ -18,7 +18,6 @@ const createSimilarObject = (data) => {
     objectProperty.dataset.photoId = obj.id;
     objectListFragment.append(objectProperty);
   });
-
   objectList.append(objectListFragment);
 };
 
@@ -33,7 +32,6 @@ const getPictureFromThumbnails = (data) => {
       openModal();
     }
   });
-
 };
 
 export {createSimilarObject, getPictureFromThumbnails};

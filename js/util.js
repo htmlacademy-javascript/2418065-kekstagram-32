@@ -20,6 +20,7 @@ const hasDuplicate = (arr) => {
   return uniqEl.size !== arr.length;
 };
 
+
 export { getRandomInteger,
   getId,
   createNewElement,
