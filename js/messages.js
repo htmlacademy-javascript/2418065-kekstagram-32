@@ -14,9 +14,11 @@ const onDocumentKeydownError = (evt) => {
 };
 
 
-const showDataErrorMessage = () => {
+const showDataErrorMessage = (mess) => {
   const dataErrorMessage = dataErrorTemplate.cloneNode(true);
   document.body.append(dataErrorMessage);
+  const messageText = dataErrorMessage.querySelector('h2');
+  messageText.textContent = mess;
 
   setTimeout(() => {
     dataErrorMessage.remove();
@@ -27,6 +29,7 @@ let messageWindow;
 
 const showMessageWindow = (template) => {
   messageWindow = template.cloneNode(true);
+
   document.body.append(messageWindow);
   const closeButton = messageWindow.querySelector('button');
   closeButton.addEventListener('click', removeWindow);
@@ -34,6 +37,7 @@ const showMessageWindow = (template) => {
   document.removeEventListener('keydown', onDocumentKeydown);
   closeMessageWindow();
 };
+
 
 const showSuccessMessage = () => showMessageWindow(successTemplate);
 const showSendedErrorMessage = () => showMessageWindow(sendedErrorTemplate);
