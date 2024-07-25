@@ -1,5 +1,5 @@
-import { isEscapeKey } from './util';
-import { onDocumentKeydown } from './form-upload';
+import { isEscapeKey } from './util.js';
+import { onDocumentKeydown } from './form-upload.js';
 
 const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
