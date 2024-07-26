@@ -1,6 +1,8 @@
 import { isEscapeKey, hasDuplicate} from './util.js';
 import '../vendor/pristine/pristine.min.js';
 import '../vendor/nouislider/nouislider.js';
+import { showSendedErrorMessage, showSuccessMessage } from './messages.js';
+import { sendData } from './api.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 
@@ -20,6 +22,12 @@ const uploadCloseButton = uploadForm.querySelector('.img-upload__cancel');
 
 const uploadInputHashtag = uploadForm.querySelector('.text__hashtags');
 const uploadInputDescription = uploadForm.querySelector('.text__description');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
+const SubmitButtonText = {
+  IDLE: 'ОПУБЛИКОВАТЬ',
+  SENDING: 'ПУБЛИКУЮ...'
+};
+
 
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_HASHTAG_LENGTH = 20;
@@ -240,7 +248,6 @@ const openUploadWindow = () => {
     uploadOverlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onDocumentKeydown);
-    uploadForm.addEventListener('submit', onFormSubmit);
     uploadInputHashtag.addEventListener('focus', onInputHashtagFocus);
     uploadInputDescription.addEventListener('focus', onInputDescriptionFocus);
     scaleControlSmaller.addEventListener('click', getPreviewSmaller,);
@@ -258,7 +265,6 @@ function closeUploadWindow () {
   document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
-  uploadForm.removeEventListener('submit', onFormSubmit);
 
   uploadInputHashtag.removeEventListener('focus', onInputHashtagFocus);
   uploadInputDescription.removeEventListener('focus', onInputDescriptionFocus);
@@ -272,19 +278,37 @@ function closeUploadWindow () {
 
   uploadForm.reset();
   pristine.reset();
-  // pristine.destroy();
 }
 
 
-function onFormSubmit (evt) {
-  const isValid = pristine.validate();
-  evt.preventDefault();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
 
 
-  if (isValid) {
-    closeUploadWindow();
-  }
-}
+const setUploadFormSubmit = (onSuccess) => {
+  uploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(showSuccessMessage)
+        .then(onSuccess)
+        .catch((err) => {
+          showSendedErrorMessage(err.message);
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
+};
 
 
 function addStopPropagation (evt) {
@@ -305,4 +329,4 @@ uploadCloseButton.addEventListener('click',
   closeUploadWindow);
 
 
-export {openUploadWindow, addValidators};
+export {openUploadWindow, addValidators, setUploadFormSubmit, closeUploadWindow, onDocumentKeydown};
