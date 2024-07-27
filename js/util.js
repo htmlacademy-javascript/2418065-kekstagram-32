@@ -21,9 +21,32 @@ const hasDuplicate = (arr) => {
 };
 
 
+const shuffleArray = (arr) => {
+  for(let i = arr.length - 1; i > 0; i--) {
+    const temp = arr[i];
+    const random = Math.floor(Math.random() * (i + 1));
+
+    arr[i] = arr[random];
+    arr[random] = temp;
+  }
+  return arr;
+};
+
+function debounce (callback, timeoutDelay) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 export { getRandomInteger,
   getId,
   createNewElement,
   isEscapeKey,
   hasDuplicate,
+  shuffleArray,
+  debounce
 };
