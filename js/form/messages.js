@@ -1,10 +1,6 @@
-import { isEscapeKey } from './util.js';
+import {dataErrorTemplate, successTemplate, sendedErrorTemplate, TIMEOUT_TIME} from '../constants.js';
+import { isEscapeKey } from '../util.js';
 import { onDocumentKeydown } from './form-upload.js';
-
-const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
-const successTemplate = document.querySelector('#success').content.querySelector('.success');
-const sendedErrorTemplate = document.querySelector('#error').content.querySelector('.error');
-const TIMEOUT_TIME = 5000;
 
 const onDocumentKeydownError = (evt) => {
   if (isEscapeKey(evt)) {
@@ -12,7 +8,6 @@ const onDocumentKeydownError = (evt) => {
     removeWindow();
   }
 };
-
 
 const showDataErrorMessage = (mess) => {
   const dataErrorMessage = dataErrorTemplate.cloneNode(true);

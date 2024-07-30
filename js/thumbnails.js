@@ -1,12 +1,14 @@
+import { objectList, objectTemplate } from './constants.js';
 import { createBigPicture, openModal } from './modal.js';
-
-const objectList = document.querySelector('.pictures');
-const objectTemplate = document.querySelector('#picture').content.querySelector('.picture');
+import { getFiltredArray } from './filter.js';
 
 
 const createSimilarObject = (data) => {
+
   const objectListFragment = document.createDocumentFragment();
-  data.forEach((obj) => {
+
+  const newData = getFiltredArray(data);
+  newData.forEach((obj) => {
     const objectProperty = objectTemplate.cloneNode(true);
     const pictureImage = objectProperty.querySelector('.picture__img');
     pictureImage.src = obj.url;
@@ -18,6 +20,9 @@ const createSimilarObject = (data) => {
     objectProperty.dataset.photoId = obj.id;
     objectListFragment.append(objectProperty);
   });
+
+  objectList.querySelectorAll('a').forEach((link) => link.remove());
+
   objectList.append(objectListFragment);
 };
 
@@ -34,4 +39,4 @@ const getPictureFromThumbnails = (data) => {
   });
 };
 
-export {createSimilarObject, getPictureFromThumbnails};
+export {createSimilarObject, getPictureFromThumbnails,};

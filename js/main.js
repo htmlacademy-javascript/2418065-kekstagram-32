@@ -1,16 +1,18 @@
-import {createSimilarObject, getPictureFromThumbnails} from './thumbnails.js';
-import {openUploadWindow, addValidators, closeUploadWindow, setUploadFormSubmit} from './form-upload.js';
+import { createSimilarObject, getPictureFromThumbnails} from './thumbnails.js';
+import {openUploadWindow, closeUploadWindow, setUploadFormSubmit} from './form/form-upload.js';
 import { getData } from './api.js';
-import { showDataErrorMessage } from './messages.js';
+import { showDataErrorMessage } from './form/messages.js';
+import { debounce } from './util.js';
+import {changeFilter} from './filter.js';
+import { DELAY_TIME } from './constants.js';
 
 openUploadWindow ();
-addValidators();
-
 
 getData()
   .then((objData) => {
     createSimilarObject(objData);
     getPictureFromThumbnails(objData);
+    changeFilter(debounce(() => createSimilarObject(objData), DELAY_TIME));
   })
   .catch((err) => {
     showDataErrorMessage(err.message);
