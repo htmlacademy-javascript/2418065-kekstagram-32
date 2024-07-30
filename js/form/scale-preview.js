@@ -1,4 +1,4 @@
-import{scaleControlValue, MIN_SCALE_COUNT, SCALE_STEP, MAX_SCALE_COUNT, imgUploadPreview} from '../constants';
+import{scaleControlValue, MIN_SCALE_COUNT, SCALE_STEP, MAX_SCALE_COUNT, imgUploadPreview} from '../constants.js';
 
 let scaleValue = parseInt(scaleControlValue.value, 10);
 
