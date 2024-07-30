@@ -6,6 +6,7 @@ const objectList = document.querySelector('.pictures');
 const objectTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const imgFilters = document.querySelector('.img-filters');
 const filterForm = imgFilters.querySelector('.img-filters__form');
+const MAX_RANDOM_FILTER_COUNT = 10;
 
 
 let currentFilter = 'filter-default';
@@ -17,7 +18,7 @@ const getFiltredArray = (arr) => {
   }
 
   if(currentFilter === 'filter-random') {
-    return shuffleArray(arr.slice()).slice(0,10);
+    return shuffleArray(arr.slice()).slice(0, MAX_RANDOM_FILTER_COUNT);
   }
   return arr;
 };

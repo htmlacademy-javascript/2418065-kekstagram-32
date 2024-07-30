@@ -1,3 +1,5 @@
+import { DELAY_TIME } from './constants.js';
+
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 const getId = () => {
@@ -32,7 +34,7 @@ const shuffleArray = (arr) => {
   return arr;
 };
 
-function debounce (callback, timeoutDelay) {
+function debounce (callback, timeoutDelay = DELAY_TIME) {
   let timeoutId;
 
   return (...rest) => {

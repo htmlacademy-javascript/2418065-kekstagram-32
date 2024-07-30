@@ -51,6 +51,17 @@ noUiSlider.create(slider, {
   start:100,
   step: 1,
   connect: 'lower',
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)){
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    }
+  }
 });
 
 let currentEffect = 'none';
@@ -152,7 +163,7 @@ const openUploadWindow = () => {
     scaleControlBigger.addEventListener('click', getPreviewBigger);
     imgUploadPreview.style.transform = `scale(${1})`;
     currentEffect = 'none';
-    slider.noUiSlider.set([0]);
+    slider.noUiSlider.set();
     effectsList.addEventListener('change', onChangeEffects);
     chooseUploadPhotoPreview();
   });
@@ -184,6 +195,7 @@ const unblockSubmitButton = () => {
 };
 
 const setUploadFormSubmit = (onSuccess) => {
+  addValidators();
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();

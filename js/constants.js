@@ -88,5 +88,6 @@ const sliderEffectsData = {
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_DESCRIPTION_LENGTH = 140;
+const DELAY_TIME = 500;
 
-export {uploadForm, scaleControlBigger, scaleControlSmaller, scaleControlValue,imgUploadPreview, slider, sliderEffectLevel, sliderEffectValue, effectsList, MIN_SCALE_COUNT, MAX_DESCRIPTION_LENGTH, MAX_HASHTAGS_COUNT, MAX_HASHTAG_LENGTH, SCALE_STEP, MAX_SCALE_COUNT, sliderEffectsData};
+export {uploadForm, scaleControlBigger, scaleControlSmaller, scaleControlValue,imgUploadPreview, slider, sliderEffectLevel, sliderEffectValue, effectsList, MIN_SCALE_COUNT, MAX_DESCRIPTION_LENGTH, MAX_HASHTAGS_COUNT, MAX_HASHTAG_LENGTH, SCALE_STEP, MAX_SCALE_COUNT, sliderEffectsData, DELAY_TIME};
