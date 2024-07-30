@@ -22,7 +22,6 @@ const createSimilarObject = (data) => {
   });
 
   objectList.querySelectorAll('a').forEach((link) => link.remove());
-
   objectList.append(objectListFragment);
 };
 
