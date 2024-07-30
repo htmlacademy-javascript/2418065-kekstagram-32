@@ -1,8 +1,4 @@
-const previewThumbnail = document.querySelectorAll('.effects__preview');
-const uploadInput = document.querySelector('.img-upload__input');
-const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp'];
-const imgUploadPreview = document.querySelector('.img-upload__preview img');
-
+import { uploadInput, imgUploadPreview, previewThumbnails, FILE_TYPES } from '../constants.js';
 
 const chooseUploadPhotoPreview = () => {
   const file = uploadInput.files[0];
@@ -13,7 +9,7 @@ const chooseUploadPhotoPreview = () => {
   if (matches) {
     imgUploadPreview.src = URL.createObjectURL(file);
 
-    previewThumbnail.forEach((mini) => {
+    previewThumbnails.forEach((mini) => {
       mini.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
     });
   }

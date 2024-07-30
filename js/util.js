@@ -1,14 +1,5 @@
 import { DELAY_TIME } from './constants.js';
 
-const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-
-const getId = () => {
-  let i = 1;
-  return function () {
-    return i++;
-  };
-};
-
 const createNewElement = (tagName, className) => {
   const newElement = document.createElement(tagName);
   newElement.classList.add(className);
@@ -21,6 +12,12 @@ const hasDuplicate = (arr) => {
   const uniqEl = new Set(arr);
   return uniqEl.size !== arr.length;
 };
+
+function addStopPropagation (evt) {
+  if (isEscapeKey(evt)) {
+    evt.stopPropagation();
+  }
+}
 
 
 const shuffleArray = (arr) => {
@@ -44,11 +41,11 @@ function debounce (callback, timeoutDelay = DELAY_TIME) {
   };
 }
 
-export { getRandomInteger,
-  getId,
+export {
   createNewElement,
   isEscapeKey,
   hasDuplicate,
+  addStopPropagation,
   shuffleArray,
   debounce
 };

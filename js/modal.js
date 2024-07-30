@@ -1,15 +1,5 @@
+import {bigPictureModal, bigPictureImage, bigPictureLikes, bigPictureCloseButton, bigPictureSocialCaption, bigPictureShowedComments, bigPictureTotalComments, bigPictureSocialComments, bigPictureCommentsLoader,} from './constants.js';
 import { createNewElement, isEscapeKey } from './util.js';
-
-const bigPictureModal = document.querySelector('.big-picture');
-const bigPictureImage = bigPictureModal.querySelector('.big-picture__img img');
-
-const bigPictureLikes = bigPictureModal.querySelector('.likes-count');
-const bigPictureCloseButton = bigPictureModal.querySelector('.big-picture__cancel');
-const bigPictureSocialCaption = bigPictureModal.querySelector('.social__caption');
-const bigPictureShowedComments = bigPictureModal.querySelector('.social__comment-shown-count');
-const bigPictureTotalComments = bigPictureModal.querySelector('.social__comment-total-count');
-const bigPictureSocialComments = bigPictureModal.querySelector('.social__comments');
-const bigPictureCommentsLoader = bigPictureModal.querySelector('.comments-loader');
 
 let showMoreComments;
 
@@ -94,6 +84,7 @@ bigPictureCloseButton.addEventListener('click', () => {
   closeModal();
 });
 
+// закрытие модалки по клику не на модалку
 // bigPictureModal.addEventListener('click', (evt) => {
 //   if(evt.target === bigPictureModal) {
 //     closeModal();
